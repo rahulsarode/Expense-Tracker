@@ -1,0 +1,15 @@
+C:\Users\Rahul\source\repos\Wpf_ExpenseTracker\Wpf_ExpenseTracker\bin\Debug\Wpf_ExpenseTracker.exe.config
+C:\Users\Rahul\source\repos\Wpf_ExpenseTracker\Wpf_ExpenseTracker\bin\Debug\Wpf_ExpenseTracker.exe
+C:\Users\Rahul\source\repos\Wpf_ExpenseTracker\Wpf_ExpenseTracker\bin\Debug\Wpf_ExpenseTracker.pdb
+C:\Users\Rahul\source\repos\Wpf_ExpenseTracker\Wpf_ExpenseTracker\obj\Debug\MainWindow.g.cs
+C:\Users\Rahul\source\repos\Wpf_ExpenseTracker\Wpf_ExpenseTracker\obj\Debug\App.g.cs
+C:\Users\Rahul\source\repos\Wpf_ExpenseTracker\Wpf_ExpenseTracker\obj\Debug\Wpf_ExpenseTracker_MarkupCompile.cache
+C:\Users\Rahul\source\repos\Wpf_ExpenseTracker\Wpf_ExpenseTracker\obj\Debug\Wpf_ExpenseTracker_MarkupCompile.lref
+C:\Users\Rahul\source\repos\Wpf_ExpenseTracker\Wpf_ExpenseTracker\obj\Debug\MainWindow.baml
+C:\Users\Rahul\source\repos\Wpf_ExpenseTracker\Wpf_ExpenseTracker\obj\Debug\Wpf_ExpenseTracker.g.resources
+C:\Users\Rahul\source\repos\Wpf_ExpenseTracker\Wpf_ExpenseTracker\obj\Debug\Wpf_ExpenseTracker.Properties.Resources.resources
+C:\Users\Rahul\source\repos\Wpf_ExpenseTracker\Wpf_ExpenseTracker\obj\Debug\Wpf_ExpenseTracker.csproj.GenerateResource.cache
+C:\Users\Rahul\source\repos\Wpf_ExpenseTracker\Wpf_ExpenseTracker\obj\Debug\Wpf_ExpenseTracker.csproj.CoreCompileInputs.cache
+C:\Users\Rahul\source\repos\Wpf_ExpenseTracker\Wpf_ExpenseTracker\obj\Debug\Wpf_ExpenseTracker.exe
+C:\Users\Rahul\source\repos\Wpf_ExpenseTracker\Wpf_ExpenseTracker\obj\Debug\Wpf_ExpenseTracker.pdb
+C:\Users\Rahul\source\repos\Wpf_ExpenseTracker\Wpf_ExpenseTracker\obj\Debug\Wpf_ExpenseTracker.csprojAssemblyReference.cache
