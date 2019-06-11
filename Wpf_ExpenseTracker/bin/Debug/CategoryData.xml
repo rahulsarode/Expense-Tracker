@@ -2,9 +2,9 @@
 <ArrayOfCategory xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Category>
     <name>Grocery</name>
-    <moneyAvailable>-44</moneyAvailable>
+    <moneyAvailable>53</moneyAvailable>
     <moneySpent>47</moneySpent>
-    <totalBudget>3</totalBudget>
+    <totalBudget>100</totalBudget>
   </Category>
   <Category>
     <name>Health</name>
@@ -20,8 +20,8 @@
   </Category>
   <Category>
     <name>Personal Care</name>
-    <moneyAvailable>15</moneyAvailable>
-    <moneySpent>35</moneySpent>
+    <moneyAvailable>25</moneyAvailable>
+    <moneySpent>25</moneySpent>
     <totalBudget>50</totalBudget>
   </Category>
   <Category>
@@ -44,8 +44,8 @@
   </Category>
   <Category>
     <name>Overall</name>
-    <moneyAvailable>52</moneyAvailable>
-    <moneySpent>601</moneySpent>
-    <totalBudget>653</totalBudget>
+    <moneyAvailable>159</moneyAvailable>
+    <moneySpent>591</moneySpent>
+    <totalBudget>750</totalBudget>
   </Category>
 </ArrayOfCategory>
