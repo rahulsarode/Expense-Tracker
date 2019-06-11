@@ -10,8 +10,8 @@
         Title="Expense Tracker" Height="500" Width="800">
     <Grid>
         <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Expense Tracker" FontSize="32" FontWeight="Bold" TextAlignment="Center" VerticalAlignment="Top" Height="50" Width="800"/>
-        <TabControl HorizontalAlignment="Left" Height="415" Margin="0,55,0,0" VerticalAlignment="Top" Width="800">
-            <TabItem Header="Expenses">
+        <TabControl HorizontalAlignment="Left" SelectionChanged="TabControl_SelectionChanged" Height="420" Margin="0,50,0,0" VerticalAlignment="Top" Width="800">
+            <TabItem Width="100" Header="Expenses">
                 <Grid Background="#FFE5E5E5">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="300"/>
@@ -37,22 +37,22 @@
                         </ListBox.ItemTemplate>
                     </ListBox>
                     <StackPanel Orientation="Vertical" Grid.Column="1" HorizontalAlignment="Left" Height="308" DataContext="{Binding ElementName=Lbx_expenses, Path=SelectedItem}" Margin="10,10,10,10" Grid.Row="1" VerticalAlignment="Top" Width="450">
-                        <TextBlock TextWrapping="Wrap" Text="{Binding description}" Height="30" FontSize="18"  Margin="30,0,0,0"/>
+                        <TextBlock TextWrapping="Wrap" FontWeight="Bold" Text="{Binding description}" Height="30" FontSize="18"  Margin="30,0,0,0"/>
                         <StackPanel Orientation="Horizontal" Height="25" Margin="0,10,0,0">
                             <TextBlock Margin="30,0,0,0" TextWrapping="Wrap" Width="70" Text="Description"/>
-                            <TextBox Margin="0 0 0 0 " TextWrapping="Wrap" Text="{Binding description}" Width="250"/>
+                            <TextBox Margin="0 0 0 0 " TextWrapping="Wrap" FontWeight="Bold" Text="{Binding description}" Width="250"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Height="25" Margin="0,10,0,0">
                             <TextBlock Margin="30 0 0 0" TextWrapping="Wrap" Width="70" Text="Category"/>
-                            <ComboBox x:Name="Cbx_category" SelectedValue="{Binding category}" SelectionChanged="Cbx_category_SelectionChanged" Width="120"/>
+                            <ComboBox x:Name="Cbx_category" FontWeight="Bold" SelectedValue="{Binding category}" SelectionChanged="Cbx_category_SelectionChanged" Width="120"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Height="25" Margin="0,10,0,0">
                             <TextBlock Margin="30 0 0 0" TextWrapping="Wrap" Width="70" Text="Date"/>
-                            <DatePicker x:Name="Dpr_expenseDate" SelectedDate="{Binding expenseDate}" SelectedDateChanged="Dpr_expenseDate_SelectedDateChanged" Margin="0,0,0,0" Width="120"/>
+                            <DatePicker x:Name="Dpr_expenseDate" FontWeight="Bold" SelectedDate="{Binding expenseDate}" SelectedDateChanged="Dpr_expenseDate_SelectedDateChanged" Margin="0,0,0,0" Width="120"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Height="25" Margin="0,10,0,0">
                             <TextBlock Margin="30 0 0 0" TextWrapping="Wrap" Width="70" Text="Amount"/>
-                            <TextBox Margin="0 0 0 0 " TextWrapping="Wrap" Text="{Binding amount}" Width="120"/>
+                            <TextBox x:Name="Tbx_amount" FontWeight="Bold" TextChanged="Tbx_amount_TextChanged" Margin="0 0 0 0 " TextWrapping="Wrap" Text="{Binding amount}" Width="120"/>
                         </StackPanel>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="10,0,0,20" Grid.Row="1" VerticalAlignment="Bottom" Width="180">
@@ -61,7 +61,7 @@
                     </StackPanel>
                 </Grid>
             </TabItem>
-            <TabItem Header="Budget">
+            <TabItem Header="Budget" Width="100" >
                 <Grid Background="#FFE5E5E5">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="250"/>
@@ -87,22 +87,39 @@
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
-                    <StackPanel Orientation="Vertical" DataContext="{Binding ElementName=Lbx_categories, Path=SelectedItem}" Grid.Column="1" HorizontalAlignment="Left" Height="260" Margin="10,10,0,0" Grid.Row="1" VerticalAlignment="Top" Width="230">
-                        <TextBlock Height="30" TextWrapping="Wrap" FontSize="18" Margin="30,0,0,0">
+                    <StackPanel x:Name="Stp_budget" Orientation="Vertical" DataContext="{Binding ElementName=Lbx_categories, Path=SelectedItem}" Grid.Column="1" HorizontalAlignment="Left" Height="260" Margin="10,10,0,0" Grid.Row="1" VerticalAlignment="Top" Width="230">
+                        <TextBlock Height="30" TextWrapping="Wrap" FontSize="16" Margin="30,0,0,0">
                             <Run Text="Budget for"></Run>
                             <Run Text="{Binding name}" FontWeight="Bold"></Run>
                         </TextBlock>
                         <StackPanel Height="25" Margin="0,10,0,0" Orientation="Horizontal">
                             <TextBlock TextWrapping="Wrap" Text="Money Available " VerticalAlignment="Top" Margin="30,0,0,0" Width="100" Height="25"/>
-                            <TextBox x:Name="Tbx_moneyAvailable"  TextWrapping="Wrap" IsEnabled="False" Text="{Binding moneyAvailable}" Width="70"/>
+                            <TextBox x:Name="Tbx_moneyAvailable" FontWeight="Bold" TextWrapping="Wrap" IsEnabled="False" Text="{Binding moneyAvailable}" Width="70"/>
                         </StackPanel>
                         <StackPanel Height="25" Margin="0,10,0,0" Orientation="Horizontal">
                             <TextBlock TextWrapping="Wrap" Text="Money Spent" VerticalAlignment="Top" Margin="30,0,0,0" Width="100" Height="25"/>
-                            <TextBox  TextWrapping="Wrap" IsEnabled="False" Text="{Binding moneySpent}" Width="70"/>
+                            <TextBox  TextWrapping="Wrap" FontWeight="Bold" IsEnabled="False" Text="{Binding moneySpent}" Width="70"/>
+                        </StackPanel>
+                        <StackPanel Height="25" Margin="0,10,0,0" Orientation="Horizontal">
+                            <TextBlock TextWrapping="Wrap" Text="Budget" VerticalAlignment="Top" Margin="30,0,0,0" Width="100" Height="25"/>
+                            <TextBox x:Name="Tbx_budget" FontWeight="Bold" TextWrapping="Wrap" Text="{Binding totalBudget}" Width="70"  TextChanged="Tbx_budget_TextChanged"/>
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel x:Name="Stp_totalBudget" Orientation="Vertical" Grid.Column="2" HorizontalAlignment="Left" Height="260" Margin="10,10,0,0" Grid.Row="1" VerticalAlignment="Top" Width="230">
+                        <TextBlock Height="30" TextWrapping="Wrap" FontSize="16" Margin="30,0,0,0">
+                            <Run Text="Total Budget"></Run>
+                        </TextBlock>
+                        <StackPanel Height="25" Margin="0,10,0,0" Orientation="Horizontal">
+                            <TextBlock TextWrapping="Wrap" Text="Money Available" VerticalAlignment="Top" Margin="30,0,0,0" Width="100" Height="25"/>
+                            <TextBox x:Name="Tbx_totalMoneyAvailable" FontWeight="Bold" TextWrapping="Wrap" IsEnabled="False" Text="{Binding totalMoneyAvailable}" Width="70"/>
+                        </StackPanel>
+                        <StackPanel Height="25" Margin="0,10,0,0" Orientation="Horizontal">
+                            <TextBlock  TextWrapping="Wrap" Text="Money Spent" VerticalAlignment="Top" Margin="30,0,0,0" Width="100" Height="25"/>
+                            <TextBox x:Name="Tbx_totalMoneySpent" FontWeight="Bold" TextWrapping="Wrap" IsEnabled="False" Text="{Binding totalMoneySpent}" Width="70"/>
                         </StackPanel>
                         <StackPanel Height="25" Margin="0,10,0,0" Orientation="Horizontal">
                             <TextBlock TextWrapping="Wrap" Text="Total Budget" VerticalAlignment="Top" Margin="30,0,0,0" Width="100" Height="25"/>
-                            <TextBox x:Name="Tbx_budget" TextWrapping="Wrap" Text="{Binding totalBudget}" Width="70"  TextChanged="Tbx_budget_TextChanged"/>
+                            <TextBox x:Name="Tbx_totalBudget" FontWeight="Bold" TextWrapping="Wrap" Text="{Binding totalBudgetForAllCategories}" Width="70"  TextChanged="Tbx_budget_TextChanged" IsEnabled="False"/>
                         </StackPanel>
                     </StackPanel>
                 </Grid>

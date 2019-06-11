@@ -29,15 +29,10 @@ namespace Wpf_ExpenseTracker
         public MainWindow()
         {
             InitializeComponent();
-            //var lst = new ObservableCollection<Expense> { new Expense { description = "Edit Description", category = "Others", amount=0.0, expenseDate=DateTime.Today }, new Expense { description = "Edit Description 2", category = "Others", amount = 0.0, expenseDate = DateTime.Today } };
-            //DataStorage.WriteXML<ObservableCollection<Expense>>(lst,"SampleExpense.xml");
-            //var lst = new ObservableCollection<Category> { new Category { name = "Edit Description", moneyAvailable = 0.0, moneySpent=0.0, totalBudget=0.0}};
-            //DataStorage.WriteXML<ObservableCollection<Category>>(lst,"CategoryData.xml");
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            //expenses = GenerateExpenses(10);
             expenses = DataStorage.ReadXML<ObservableCollection<Expense>>("ExpenseData.xml");
             if (expenses == null)
             {
@@ -61,17 +56,12 @@ namespace Wpf_ExpenseTracker
             }
             for (int i = 0; i < categoryNames.Length; i++)
             {
-                //var expensesOfCategory = new ObservableCollection<Expense>();
                 string categoryName = categoryNames[i];
                 Category category = (from cat in existingCategories where cat.name.Equals(categoryName) select cat).First<Category>();
                 if (category !=null)
                 {
                     double totalBudget = category.totalBudget;
-                    double moneySpent = 0;
-                    foreach (Expense exp in from expense in expenses where expense.category.Equals(categoryName) select expense)
-                    {
-                        moneySpent = moneySpent + exp.amount;
-                    }
+                    double moneySpent = GetTotalMoneySpentOfCategory(categoryName);
                     categoryList.Add(new Category { name = categoryName, moneyAvailable = totalBudget - moneySpent, moneySpent = moneySpent, totalBudget = totalBudget });
                 }
             }
@@ -81,6 +71,16 @@ namespace Wpf_ExpenseTracker
 
 
             return categoryList;
+        }
+
+        private double GetTotalMoneySpentOfCategory(string categoryName)
+        {
+            double moneySpent = 0;
+            foreach (Expense exp in from expense in expenses where expense.category.Equals(categoryName) select expense)
+            {
+                moneySpent = moneySpent + exp.amount;
+            }
+            return moneySpent;
         }
 
         private ObservableCollection<Category> GetExistingCategories()
@@ -103,8 +103,15 @@ namespace Wpf_ExpenseTracker
             overallCategory.moneyAvailable = totalMoneyAvailable;
             overallCategory.moneySpent = totalMoneySpent;
             overallCategory.totalBudget = overallTotalBudget;
-            //Write code for writeXML here
             DataStorage.WriteXML<ObservableCollection<Category>>(categories, "CategoryData.xml");
+            updateTotalBudget(overallCategory);
+        }
+
+        private void updateTotalBudget(Category overallCategory)
+        {
+            Tbx_totalMoneyAvailable.Text = overallCategory.moneyAvailable.ToString();
+            Tbx_totalMoneySpent.Text = overallCategory.moneySpent.ToString();
+            Tbx_totalBudget.Text = overallCategory.totalBudget.ToString();
         }
 
         private double GetOverallTotalBudget(ObservableCollection<Category> categoryList)
@@ -128,34 +135,6 @@ namespace Wpf_ExpenseTracker
             }
             return totalMoneySpent;
         }
-
-        /*private ObservableCollection<Category> GenerateCategory(string[] categoryNames)
-{
-   var categoryList = new ObservableCollection<Category>();
-   Random random = new Random();
-   for (int i = 0; i < categoryNames.Length; i++)
-   {
-
-       double moneyAvailable = Math.Round(random.Next(100) * random.NextDouble(), 2);
-       double moneySpent = random.Next(100);
-       var categoryName = categoryNames[i];
-       categoryList.Add(new Category { name = categoryName, moneyAvailable = moneyAvailable, moneySpent=moneySpent,totalBudget=moneyAvailable+moneySpent});
-   }
-   double totatlMoneyAvailable = getTotalMoneyAvaiable(categoryList);
-   var overall = new Category { name = "Overall", moneyAvailable = totatlMoneyAvailable };
-   categoryList.Add(overall);
-   return categoryList;
-}*/
-
-        /*private ObservableCollection<Expense> GenerateExpenses(int count)
-        {
-            var expenseList = new ObservableCollection<Expense>();
-            for (int i = 0; i < count; i++)
-            {
-                expenseList.Add(new Expense { description = "Expense : " + i, category = "Grocery", expenseDate = new DateTime(2019, 06, 03), amount = count + i });
-            };
-            return expenseList;
-        }*/
 
         private double GetTotalMoneyAvaiable(ObservableCollection<Category> categoryList)
         {
@@ -248,6 +227,7 @@ namespace Wpf_ExpenseTracker
             {
                 Category overallCategory = (from cat in categories where cat.name.Equals("Overall") select cat).First<Category>();
                 UpdateOverallCategoryDetails(overallCategory, categories);
+                updateTotalBudget(overallCategory);
             }
             Lbx_categories.Items.Refresh();
             DataStorage.WriteXML<ObservableCollection<Category>>(categories, "CategoryData.xml");
@@ -274,6 +254,7 @@ namespace Wpf_ExpenseTracker
             {
                 Category overallCategory = (from cat in categories where cat.name.Equals("Overall") select cat).First<Category>();
                 UpdateOverallCategoryDetails(overallCategory, categories);
+                updateTotalBudget(overallCategory);
             }
             Lbx_categories.Items.Refresh();
         }
@@ -282,6 +263,31 @@ namespace Wpf_ExpenseTracker
         {
             DataStorage.WriteXML<ObservableCollection<Expense>>(expenses, "ExpenseData.xml");
             DataStorage.WriteXML<ObservableCollection<Category>>(categories, "CategoryData.xml");
+        }
+
+        private void Tbx_amount_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            Expense expense = (Expense)Lbx_expenses.SelectedItem;
+            string categoryName = expense.category;
+            if (!Tbx_amount.Text.Equals(""))
+            {
+                expense.amount = Convert.ToDouble(Tbx_amount.Text);
+                double totalMoneySpentOfCategory = GetTotalMoneySpentOfCategory(categoryName);
+                Category category = (from cat in categories where cat.name.Equals(categoryName) select cat).First<Category>();
+                if (category != null)
+                {
+                    category.moneySpent = totalMoneySpentOfCategory;
+                    category.moneyAvailable = category.totalBudget - category.moneySpent;
+                }
+                Lbx_categories.Items.Refresh();
+                Lbx_categories.ItemsSource = categories;
+                DataStorage.WriteXML<ObservableCollection<Category>>(categories, "CategoryData.xml");
+            }
+        }
+
+        private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }
