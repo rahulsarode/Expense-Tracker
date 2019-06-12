@@ -20,8 +20,8 @@
   </Category>
   <Category>
     <name>Personal Care</name>
-    <moneyAvailable>25</moneyAvailable>
-    <moneySpent>25</moneySpent>
+    <moneyAvailable>15</moneyAvailable>
+    <moneySpent>35</moneySpent>
     <totalBudget>50</totalBudget>
   </Category>
   <Category>
@@ -41,11 +41,5 @@
     <moneyAvailable>25</moneyAvailable>
     <moneySpent>25</moneySpent>
     <totalBudget>50</totalBudget>
-  </Category>
-  <Category>
-    <name>Overall</name>
-    <moneyAvailable>159</moneyAvailable>
-    <moneySpent>591</moneySpent>
-    <totalBudget>750</totalBudget>
   </Category>
 </ArrayOfCategory>
