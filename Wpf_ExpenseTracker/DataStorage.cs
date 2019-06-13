@@ -37,7 +37,6 @@ namespace Wpf_ExpenseTracker
             }
             catch (Exception x)
             {
-                MessageBox.Show("Error: " + x, "Caution...");
                 return (T)default;
             }
         }
@@ -54,7 +53,6 @@ namespace Wpf_ExpenseTracker
             }
             catch (Exception x)
             {
-                Console.WriteLine(x);
                 throw;
             }
         }

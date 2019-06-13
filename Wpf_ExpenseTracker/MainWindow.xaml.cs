@@ -69,6 +69,8 @@ namespace Wpf_ExpenseTracker
             {
                 existingCategories = new ObservableCollection<Category> { new Category { name = "Grocery", moneyAvailable = 0.0, moneySpent = 0.0, totalBudget = 0.0 }, new Category { name = "Health", moneyAvailable = 0.0, moneySpent = 0.0, totalBudget = 0.0 }, new Category { name = "Housing", moneyAvailable = 0.0, moneySpent = 0.0, totalBudget = 0.0 }, new Category { name = "Personal Care", moneyAvailable = 0.0, moneySpent = 0.0, totalBudget = 0.0 }, new Category { name = "Restaurant", moneyAvailable = 0.0, moneySpent = 0.0, totalBudget = 0.0 }, new Category { name = "Shopping", moneyAvailable = 0.0, moneySpent = 0.0, totalBudget = 0.0 }, new Category { name = "Others", moneyAvailable = 0.0, moneySpent = 0.0, totalBudget = 0.0 } };
                 DataStorage.WriteXML<ObservableCollection<Category>>(existingCategories, "CategoryData.xml");
+                MessageBox.Show("Hi Welcome to Expense Tracker App!\nAs you are using this app for the First time\nWe Request you to Please switch to Budget tab and select budget for each category first and then start adding Expenses", "Welcome Message");
+                Tbc_expensesBudget.SelectedItem = Tbi_budget;
             }
             for (int i = 0; i < categoryNames.Length; i++)
             {
@@ -81,9 +83,6 @@ namespace Wpf_ExpenseTracker
                     categoryList.Add(new Category { name = categoryName, moneyAvailable = totalBudget - moneySpent, moneySpent = moneySpent, totalBudget = totalBudget });
                 }
             }
-            //Category overallCategory = GetOverallCategory(existingCategories);
-            //UpdateOverallCategoryDetails(overallCategory,categoryList);
-            //categoryList.Add(overallCategory);
             return categoryList;
         }
 
@@ -118,7 +117,6 @@ namespace Wpf_ExpenseTracker
             overallCategory.moneySpent = totalMoneySpent;
             overallCategory.totalBudget = overallTotalBudget;
             DataStorage.WriteXML<ObservableCollection<Category>>(categories, "CategoryData.xml");
-            //UpdateTotalBudget(overallCategory);
             ChangeTotalBudgetValues(totalBudget);
         }
 
@@ -190,7 +188,7 @@ namespace Wpf_ExpenseTracker
         {
             var exp = new Expense { description = "Please Add Description of Expense !!!", amount = 0.0, category = "Others", expenseDate = DateTime.Today.Date };
             expenses.Add(exp);
-            Lbx_expenses.Items.Refresh();
+            Lbx_expenses.ItemsSource = expenses;
             Lbx_expenses.SelectedItem = exp;
             Lbx_expenses.ScrollIntoView(exp);
             DataStorage.WriteXML<ObservableCollection<Expense>>(expenses, "ExpenseData.xml");
@@ -252,9 +250,6 @@ namespace Wpf_ExpenseTracker
                     Tbx_moneyAvailable.Text = category.moneyAvailable.ToString();
                     if (!category.name.Equals("Overall"))
                     {
-                        //Category overallCategory = (from cat in categories where cat.name.Equals("Overall") select cat).First<Category>();
-                        //UpdateOverallCategoryDetails(overallCategory, categories);
-                        //UpdateTotalBudget(overallCategory);
                         ChangeTotalBudgetValues(totalBudget);
                     }
                     Lbx_categories.Items.Refresh();
@@ -296,6 +291,8 @@ namespace Wpf_ExpenseTracker
                     if (regEx.IsMatch(input))
                     {
                         expense.amount = Convert.ToDouble(input);
+                        Expense exp = (from ex in expenses where expense.description.Equals(ex.description) select ex).First<Expense>();
+                        exp.amount = expense.amount;
                         double totalMoneySpentOfCategory = GetTotalMoneySpentOfCategory(categoryName);
                         Category category = (from cat in categories where cat.name.Equals(categoryName) select cat).First<Category>();
                         if (category != null)

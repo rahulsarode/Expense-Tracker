@@ -12,3 +12,4 @@ C:\Users\Rahul\source\repos\Wpf_ExpenseTracker\Wpf_ExpenseTracker\obj\Debug\Wpf_
 C:\Users\Rahul\source\repos\Wpf_ExpenseTracker\Wpf_ExpenseTracker\obj\Debug\Wpf_ExpenseTracker.csproj.CoreCompileInputs.cache
 C:\Users\Rahul\source\repos\Wpf_ExpenseTracker\Wpf_ExpenseTracker\obj\Debug\Wpf_ExpenseTracker.exe
 C:\Users\Rahul\source\repos\Wpf_ExpenseTracker\Wpf_ExpenseTracker\obj\Debug\Wpf_ExpenseTracker.pdb
+C:\Users\Rahul\source\repos\Wpf_ExpenseTracker\Wpf_ExpenseTracker\obj\Debug\Wpf_ExpenseTracker.csprojAssemblyReference.cache
